@@ -1,0 +1,173 @@
+// Julie Ganbold
+// 02/17/24
+// Implements the T9 library
+// Implements a program that uses a compressed trie that has 8 possible
+// branches at each node for each possible digit (2-9).
+// Translates each word in the file to associated T9 key sequence and adds
+// word into the trie(dictionary).
+// If word has same key sequence as other words, words can be rep. in order
+// using number of # used.
+
+#include <stddef.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include "t9_lib.h"
+#include "t9_priv.h"
+
+// Initializes an empty T9 trie/dictionary
+T9* InitializeEmptyT9() {
+    T9* dict = (T9*)malloc(sizeof(T9));
+    dict -> word = NULL;
+    for (int i = 0; i < 11; i++) {
+        dict -> children[i] = NULL;
+    }
+    return dict;
+}
+
+// Initializes a T9 trie/dictionary from a file
+T9* InitializeFromFileT9(const char* filename) {
+    FILE* file = fopen(filename, "r");
+    if (file == NULL) {
+        return NULL;
+    }
+    T9* dict = InitializeEmptyT9();
+    if (dict == NULL) {
+        fclose(file);
+        DestroyT9(dict);
+        return NULL;
+    }
+    // assumes the maximum word length is 50 characters
+    char word[51];
+    while (fgets(word, sizeof(word), file)) {
+        int len = strlen(word);
+        // remove newline character if found
+        if (len > 0 && word[len - 1] == '\n') {
+            word[len - 1] = '\0';
+        }
+        AddWordToT9(dict, word);
+    }
+    fclose(file);
+    return dict;
+}
+
+// Gets the digit associated with the alphabetic char letter
+int getDigit(char letter) {
+    char table[26] = {2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7, 7,
+          8, 8, 8, 9, 9, 9, 9};
+    int i = letter - 'a';
+    return table[i];
+}
+
+// Adds the given word to the internal T9 dictionary.
+// If word has same key sequence then associates words with same key sequence
+// that can later be accessed with the number of # given.
+void AddWordToT9(T9* dict, const char* word) {
+    if (dict == NULL && word == NULL) {
+        return;
+    }
+    T9 * current = dict;
+    // Make a copy of the given word
+    int length = strlen(word);
+    char * text = (char *) malloc(length + 1);
+    if (text != NULL) {
+        strncpy(text, word, length);
+    }
+    int i = 0;
+    while (word[i] != '\0') {
+        int digit = getDigit(word[i]);
+        if (digit < 0 || digit > 9) {
+            // Handle invalid digit
+            free(text);  // Free allocated memory
+            return;
+        }
+        if ((current->children[digit]) == NULL) {
+            current -> children[digit] = InitializeEmptyT9();
+        }
+        current = current -> children[digit];
+        i++;
+    }
+    while (current -> children[10] != NULL) {
+        current = current -> children[10];
+    }
+    if (current -> word == NULL) {
+        current -> word = text;
+    } else {
+        current -> children[10] = InitializeEmptyT9();
+        current = current -> children[10];
+        current -> word = text;
+    }
+}
+
+// Checks if the T9 sequence has valid commands.
+int isValidT9Command(char c) {
+    return ((c >= '2' && c <= '9') || c == '#');
+}
+
+// Returns the associated word from given node.
+char* GetWordFromNode(T9* node) {
+    if (node == NULL) {
+        return NULL;
+    }
+    if (node -> word != NULL) {
+        return node -> word;
+    }
+    for (int i = 0; i < 11; i++) {
+        char* childWord = GetWordFromNode(node -> children[i]);
+        if (childWord != NULL) {
+            return childWord;
+        }
+    }
+    return NULL;
+}
+
+// Predicts a word given a T9 sequence.
+char* PredictT9(T9* dict, const char* nums) {
+    if (dict == NULL || nums == NULL) {
+        return NULL;
+    }
+    // Check for valid input
+    int len = strlen(nums);
+    if (len == 0 || nums[0] == '#') {
+        return NULL;
+    }
+    for (int i = 0; i < len; i++) {
+        if (!isValidT9Command(nums[i])) {
+            return NULL;
+        }
+    }
+
+    // Traverse the trie based on the given sequence of T9 commands
+    T9* current = dict;
+    for (int i = 0; i < len; i++) {
+        if (nums[i] != '#') {
+            if (current -> children[(nums[i] - '0')] == NULL) {
+                return NULL;
+            }
+            current = current -> children[(nums[i] -'0')];
+        } else {
+            if (current -> children[10] == NULL) {
+                return NULL;
+            }
+            current = current -> children[10];
+        }
+    }
+    return GetWordFromNode(current);
+}
+
+// Destroys T9 dictionary and frees it.
+void DestroyT9(T9* dict) {
+    if (dict == NULL) {
+        return;
+    }
+    for (int i = 0; i < 11; i++) {
+        DestroyT9(dict -> children[i]);
+    }
+    if (dict -> word != NULL) {
+        free(dict->word);
+    }
+    if (dict != NULL) {
+        free(dict);
+    }
+}
+
