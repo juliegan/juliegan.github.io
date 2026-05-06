@@ -22,6 +22,7 @@
     background: var(--white);
     font-family: 'DM Sans', sans-serif;
     color: var(--dark);
+    line-height: 1.75;
   }
 
   /* ── Fluid canvas ── */
@@ -122,7 +123,7 @@
     font-size: 17px;
     color: #666;
     max-width: 420px;
-    line-height: 1.6;
+    line-height: 1.85;
     margin-bottom: 36px;
   }
 
@@ -159,9 +160,9 @@
   section {
     position: relative;
     z-index: 10;
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 80px 24px;
+    padding: 50px 24px;
   }
   section h2 {
     font-family: 'Playfair Display', serif;
@@ -182,7 +183,7 @@
     backdrop-filter: blur(16px);
     border: 1px solid rgba(255,255,255,0.7);
     border-radius: 20px;
-    padding: 28px;
+    padding: 25px;
     transition: transform 0.25s, box-shadow 0.25s;
     cursor: pointer;
   }
@@ -196,7 +197,7 @@
     font-size: 20px;
     margin-bottom: 8px;
   }
-  .card p { font-size: 14px; color: #666; line-height: 1.6; }
+  .card p { font-size: 14px; color: #666; line-height: 1.85; }
   .card-tag {
     display: inline-block;
     margin-top: 14px;
@@ -315,14 +316,8 @@
       <div class="card-icon">🤖</div>
       <h3>Microsoft AI Sponsored Capstone</h3>
       <p><ul>
-        <li>
-          As a team, we are architecting the end-to-end design and development of a monetizable student-focused feature for Microsoft Copilot,
-translating ambiguous product requirements into high-fidelity technical prototypes using React, Node.js, and
-TypeScript
-        </li>
-        <li>
-          Specifically, I'm building a propensity scoring engine with hand-engineered behavioral features for proof-of-concept validation of personalized AI-driven experiences
-        </li>
+        <li>Building a monetizable student-focused feature for Microsoft Copilot — from ambiguous requirements to high-fidelity prototypes.</li>
+        <li>My contribution: built a propensity scoring engine with behavioral features to validate personalized AI-driven experiences.</li>
       </ul></p>
       <span class="card-tag">LLM · Node · Python</span>
     </div>
@@ -330,22 +325,17 @@ TypeScript
       <div class="card-icon">📊</div>
       <h3>Amazon: Monitoring Configuration Dashboard and Data Pipeline</h3>
       <p><ul>
-        <li>Interned at Amazon as an SDE Intern, where I worked on developing a full-stack internal web application to visualize and manage API monitoring configurations for the MCCF team. </li>
-        <li>Designed backend services and data models using AWS Lambda, DynamoDB, and Rest APIs</li>
-        <li>Implemented frontend components in React and Typescript to support real-time configuration updates</li>
-        <li>Improved reliability and maintainability of internal tooling supporting large-scale services</li>
-        <li>Monitoring Configuration dashboard supported 20+ internal teams</li>
-      </ul>
-</p>
+        <li>Built a full-stack app to visualize and manage API monitoring configurations for the MCCF team, using AWS Lambda, DynamoDB, and React/TypeScript.</li>
+        <li>Dashboard supported 20+ internal teams across large-scale services.</li>
+      </ul></p>
       <span class="card-tag">Kotlin · AWS Lambda + DynamoDB · JS</span>
     </div>
     <div class="card">
       <div class="card-icon">🤖</div>
       <h3>Bene</h3>
       <p><ul>
-        <li> Won competitive AI hackathon by building an eligibility checker and dashboard to address the equity gap in government assistance program access, utilizing a fine-tuned LLaMA 2 model to analyze and match user inputs against complex eligibility criteria, resulting in a user-friendly interface that significantly improved accessibility for underserved communities
-        </li>
-        <li> Designed and implemented an end-to-end RAG pipeline using the Claude API to deliver accurate, context-grounded eligibility determinations from complex government policy documents</li>
+        <li>Won a competitive AI hackathon building an eligibility checker to close the access gap in government assistance programs.</li>
+        <li>Built an end-to-end RAG pipeline with Claude API for context-grounded eligibility determinations from complex policy documents.</li>
       </ul></p>
       <span class="card-tag">LLM · RAG · Python</span>
     </div>
@@ -376,8 +366,8 @@ TypeScript
 <!-- Research + Legal Interests -->
 <section id="research">
   <h2>Research & Legal Interests</h2>
-  <p style="color:#666;font-size:16px;margin-bottom:32px;max-width:600px;margin-right:auto;line-height:1.7;">
-    In addition to my technical work, I am very interested in the intersection of AI ethics, data privacy, and legal frameworks governing emerging technologies.
+  <p style="color:#666;font-size:16px;margin-bottom:32px;max-width:600px;margin-right:auto;line-height:1.9;">
+    Interested in AI ethics, data privacy, and the legal frameworks shaping emerging tech.
   </p>
   <div class="cards">
     <div class="card">
@@ -390,15 +380,14 @@ TypeScript
     <div class="card">
       <div class="card-icon"></div>
       <h3>Data Privacy: Analysis of Reproductive Health Data Risk for Texas-Based Flo Users Under Texas SB 8</h3>
-      <p>Conducted a comprehensive analysis of the data privacy risks faced by users of the Flo health app in Texas following the enactment of SB 8, which criminalizes abortion and has led to increased surveillance and legal risks for individuals seeking reproductive health services. The research involved examining the types of data collected by the app, potential vulnerabilities, and the implications for user privacy and safety in a post-SB 8 legal landscape.
-  </p>
+      <p>Analyzed data privacy risks for Texas-based Flo users under SB 8 — how criminalization of abortion exposes reproductive health data to surveillance and legal threats.</p>
     <a href="DataPrivacy-Flo.pdf" target="_blank" class="paper-btn">Read Paper →</a>
 </section>
 
 <!-- Contact -->
 <section id="contact">
   <h2>Let's work together</h2>
-  <p style="color:#666;font-size:16px;margin-bottom:32px;max-width:380px;margin-left:auto;margin-right:auto;line-height:1.7;">Open to interesting projects, collaborations, or just a great conversation about technology and security.</p>
+  <p style="color:#666;font-size:16px;margin-bottom:32px;max-width:380px;margin-left:auto;margin-right:auto;line-height:1.9;">Open to interesting projects, collaborations, or just a great conversation about technology and security.</p>
   <a href="mailto:juliegan@uw.edu" class="contact-btn">Say hello →</a>
 </section>
 
